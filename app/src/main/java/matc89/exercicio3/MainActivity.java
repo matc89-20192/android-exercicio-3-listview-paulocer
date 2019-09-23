@@ -23,6 +23,24 @@ private List<Tarefa> mListTarefa;
         this.mListTarefa.add(new Tarefa("Tarefa 1",3));
         this.mListTarefa.add(new Tarefa("Tarefa 2",1));
         this.mListTarefa.add(new Tarefa("Tarefa 3",5));
+        this.mListTarefa.add(new Tarefa("Tarefa 1",3));
+        this.mListTarefa.add(new Tarefa("Tarefa 2",1));
+        this.mListTarefa.add(new Tarefa("Tarefa 3",5));
+        this.mListTarefa.add(new Tarefa("Tarefa 1",3));
+        this.mListTarefa.add(new Tarefa("Tarefa 2",1));
+        this.mListTarefa.add(new Tarefa("Tarefa 3",5));
+        this.mListTarefa.add(new Tarefa("Tarefa 1",3));
+        this.mListTarefa.add(new Tarefa("Tarefa 2",1));
+        this.mListTarefa.add(new Tarefa("Tarefa 3",5));
+        this.mListTarefa.add(new Tarefa("Tarefa 1",3));
+        this.mListTarefa.add(new Tarefa("Tarefa 2",1));
+        this.mListTarefa.add(new Tarefa("Tarefa 3",5));
+        this.mListTarefa.add(new Tarefa("Tarefa 1",3));
+        this.mListTarefa.add(new Tarefa("Tarefa 2",1));
+        this.mListTarefa.add(new Tarefa("Tarefa 3",5));
+        this.mListTarefa.add(new Tarefa("Tarefa 1",3));
+        this.mListTarefa.add(new Tarefa("Tarefa 2",1));
+        this.mListTarefa.add(new Tarefa("Tarefa 3",5));
 
         //Obter Adapter
         TaskAdapter taskAdapter;

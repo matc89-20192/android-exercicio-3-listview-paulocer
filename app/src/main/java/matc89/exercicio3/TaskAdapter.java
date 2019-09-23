@@ -36,8 +36,8 @@ public class TaskAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View viewTask = mActivity.getLayoutInflater().inflate(R.layout.list_tarefa_layout,viewGroup,false);
         Tarefa tarefa = mListTarefa.get(i);
-        TextView txtTarefa = (TextView) view.findViewById(R.id.txt_tarefa);
-        TextView txtPrioridade = (TextView) view.findViewById(R.id.txt_prioridade);
+        TextView txtTarefa = (TextView) viewTask.findViewById(R.id.txt_tarefa);
+        TextView txtPrioridade = (TextView) viewTask.findViewById(R.id.txt_prioridade);
         txtTarefa.setText(tarefa.getDescricao());
         txtPrioridade.setText("Prioridade: " + tarefa.getPrioridade());
         return viewTask;
