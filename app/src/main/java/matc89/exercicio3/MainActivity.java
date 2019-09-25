@@ -5,9 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -20,13 +24,10 @@ private TaskAdapter taskAdapter;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.mViewHolder = new ViewHolder(this);
-        this.mTaskBusiness = new TaskBusiness();
+        this.mTaskBusiness = new TaskBusiness(this);
         this.setListeners();
 
         //Obter ListView
-
-        this.mTaskBusiness.insert(new Tarefa("Tarefa 1", 1));
-        this.mTaskBusiness.insert(new Tarefa("Tarefa 2", 2));
 
         //Obter Adapter
 
@@ -60,11 +61,33 @@ private TaskAdapter taskAdapter;
                     }
                 break;
             case R.id.buttonAdicionar :
-                String descricao = "Tarefa x";
-                int prioridade = 1;
-                this.mTaskBusiness.insert(new Tarefa(descricao, prioridade));
-                taskAdapter.notifyDataSetChanged();
-                this.mViewHolder.mButtonRemover.setEnabled(true);
+                if(this.mViewHolder.mDescricao.getText().toString() != null && !this.mViewHolder.mDescricao.getText().toString().isEmpty()){
+                    if(this.mViewHolder.mPrioridade.getText().toString() != null && !this.mViewHolder.mPrioridade.getText().toString().isEmpty()){
+                        if(Integer.parseInt(this.mViewHolder.mPrioridade.getText().toString()) >= 1 && Integer.parseInt(this.mViewHolder.mPrioridade.getText().toString()) <= 10){
+                            Tarefa task = new Tarefa(this.mViewHolder.mDescricao.getText().toString(), Integer.parseInt(this.mViewHolder.mPrioridade.getText().toString()));
+                            this.mTaskBusiness.insert(task);
+                            this.mViewHolder.mDescricao.setText("");
+                            this.mViewHolder.mPrioridade.setText("");
+                            this.mViewHolder.mDescricao.requestFocus();
+
+                            taskAdapter.notifyDataSetChanged();
+                            if (!mTaskBusiness.getListTasks().isEmpty()){
+                                this.mViewHolder.mButtonRemover.setEnabled(true);
+                            }
+                        } else {
+                            Toast.makeText(this,"A prioridade deve estar entre 1 e 10.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    } else {
+                       // Toast.makeText(this,"Campo prioridade é obrigatório",Toast.LENGTH_SHORT).show();
+                        this.mViewHolder.mPrioridade.setError("Campo prioridade é obrigatório");
+                }
+                } else {
+                    //Toast.makeText(this,"Campo descrição é obrigatório",Toast.LENGTH_SHORT).show();
+                    this.mViewHolder.mDescricao.setError("Campo descrição é obrigatório");
+                }
+
+
                 break;
         }
     }
@@ -73,11 +96,15 @@ private TaskAdapter taskAdapter;
         public ListView mListView;
         public Button mButtonRemover;
         public Button mButtonAdicionar;
+        public EditText mDescricao;
+        public EditText mPrioridade;
 
         public ViewHolder(Activity activity){
             this.mListView = activity.findViewById(R.id.listView);
             this.mButtonRemover = (Button)activity.findViewById(R.id.buttonRemover);
             this.mButtonAdicionar = (Button)activity.findViewById(R.id.buttonAdicionar);
+            this.mDescricao = (EditText) findViewById(R.id.editDescricao);
+            this.mPrioridade = (EditText) findViewById(R.id.editPrioridade);
         }
 
     }
