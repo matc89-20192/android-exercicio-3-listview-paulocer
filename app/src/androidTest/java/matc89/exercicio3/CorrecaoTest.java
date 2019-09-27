@@ -51,7 +51,7 @@ public class CorrecaoTest {
     }
 
     public void checaTamanhoDaLista(int size) {
-        onView(withId(R.id.listView)).check(matches(ListBuilder.withListSize(size)));
+        onView(withId(R.id.ListView)).check(matches(ListBuilder.withListSize(size)));
     }
 
     public void insereTarefa(String descricao, String prioridade) {
@@ -80,7 +80,7 @@ public class CorrecaoTest {
                 .check(matches(not(isEnabled())));
     }
 
-    @Test
+   @Test
     public void prioridadeInvalida() {
         insereTarefa("abc", "11");
         checaToast("A prioridade deve estar entre 1 e 10.");
@@ -188,7 +188,7 @@ public class CorrecaoTest {
         insereTarefa("z", "2");
 
         onData(allOf(is(instanceOf(Tarefa.class))))
-                .inAdapterView(withId(R.id.listView))
+                .inAdapterView(withId(R.id.ListView))
                 .atPosition(1)
                 .perform(click());
 
@@ -251,6 +251,7 @@ class ListBuilder {
         public String text1;
         public String text2;
 
+
         public Item(String text1, String text2) {
             this.text1 = text1;
             this.text2 = text2;
@@ -264,16 +265,16 @@ class ListBuilder {
     }
 
     public void check() {
-        onView(withId(R.id.listView)).check(matches(withListSize(list.size())));
+        onView(withId(R.id.ListView)).check(matches(withListSize(list.size())));
         int i = 0;
         for (Item item : list) {
             onData(allOf(is(instanceOf(Tarefa.class))))
-                .inAdapterView(withId(R.id.listView))
+                .inAdapterView(withId(R.id.ListView))
                 .atPosition(i)
                 .onChildView(withId(android.R.id.text1))
                 .check(matches(withText(item.text1)));
             onData(allOf(is(instanceOf(Tarefa.class))))
-                    .inAdapterView(withId(R.id.listView))
+                    .inAdapterView(withId(R.id.ListView))
                     .atPosition(i)
                     .onChildView(withId(android.R.id.text2))
                     .check(matches(withText(item.text2)));

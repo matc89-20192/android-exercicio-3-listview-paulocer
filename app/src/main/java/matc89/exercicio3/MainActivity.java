@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TwoLineListItem;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
 private ViewHolder mViewHolder;
@@ -28,6 +32,7 @@ private TaskAdapter taskAdapter;
         //Obter Adapter
 
         taskAdapter = new TaskAdapter(mTaskBusiness.getListTasks(), this);
+
         this.mViewHolder.mListView.setAdapter(taskAdapter);
         this.setupActivity();
     }
@@ -105,12 +110,13 @@ private TaskAdapter taskAdapter;
         public EditText mPrioridade;
 
         public ViewHolder(Activity activity){
-            this.mListView = activity.findViewById(R.id.listView);
+            this.mListView = activity.findViewById(R.id.ListView);
             this.onItemClickListener = activity.findViewById(R.id.parent);
             this.mButtonRemover = (Button)activity.findViewById(R.id.buttonRemover);
             this.mButtonAdicionar = (Button)activity.findViewById(R.id.buttonAdicionar);
             this.mDescricao = (EditText) findViewById(R.id.editDescricao);
             this.mPrioridade = (EditText) findViewById(R.id.editPrioridade);
+
         }
 
     }
