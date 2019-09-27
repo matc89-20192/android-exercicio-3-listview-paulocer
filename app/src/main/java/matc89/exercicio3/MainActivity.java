@@ -4,17 +4,13 @@ import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
 private ViewHolder mViewHolder;
 private TaskBusiness mTaskBusiness;
 private TaskAdapter taskAdapter;
@@ -47,6 +43,16 @@ private TaskAdapter taskAdapter;
     private void setListeners() {
         this.mViewHolder.mButtonRemover.setOnClickListener(this);
         this.mViewHolder.mButtonAdicionar.setOnClickListener(this);
+        this.mViewHolder.mListView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+        Tarefa tarefa = (Tarefa) parent.getItemAtPosition(position);
+        this.mTaskBusiness.remove(tarefa);
+        taskAdapter.notifyDataSetChanged();
+        if(mTaskBusiness.getListTasks().isEmpty())
+            this.mViewHolder.mButtonRemover.setEnabled(false);
     }
 
     @Override
@@ -79,21 +85,20 @@ private TaskAdapter taskAdapter;
                             return;
                         }
                     } else {
-                       // Toast.makeText(this,"Campo prioridade é obrigatório",Toast.LENGTH_SHORT).show();
-                        this.mViewHolder.mPrioridade.setError("Campo prioridade é obrigatório");
+                        Toast.makeText(this,"Campo prioridade é obrigatório",Toast.LENGTH_SHORT).show();
+                        // this.mViewHolder.mPrioridade.setError("Campo prioridade é obrigatório");
                 }
                 } else {
-                    //Toast.makeText(this,"Campo descrição é obrigatório",Toast.LENGTH_SHORT).show();
-                    this.mViewHolder.mDescricao.setError("Campo descrição é obrigatório");
+                    Toast.makeText(this,"Campo descrição é obrigatório",Toast.LENGTH_SHORT).show();
+                    // this.mViewHolder.mDescricao.setError("Campo descrição é obrigatório");
                 }
-
-
-                break;
+               break;
         }
     }
 
     private class ViewHolder{
         public ListView mListView;
+        public AdapterView.OnItemClickListener onItemClickListener;
         public Button mButtonRemover;
         public Button mButtonAdicionar;
         public EditText mDescricao;
@@ -101,6 +106,7 @@ private TaskAdapter taskAdapter;
 
         public ViewHolder(Activity activity){
             this.mListView = activity.findViewById(R.id.listView);
+            this.onItemClickListener = activity.findViewById(R.id.parent);
             this.mButtonRemover = (Button)activity.findViewById(R.id.buttonRemover);
             this.mButtonAdicionar = (Button)activity.findViewById(R.id.buttonAdicionar);
             this.mDescricao = (EditText) findViewById(R.id.editDescricao);
