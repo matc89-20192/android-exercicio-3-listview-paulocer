@@ -31,7 +31,6 @@ public class TaskBusiness {
         this.repository.getListaTarefas().add(task);
         //Ordenar
         Collections.sort(this.getListTasks());
-
     }
 
     public void remove (Tarefa task){
@@ -46,5 +45,11 @@ public class TaskBusiness {
 
     public List<Tarefa> getListTasks() {
         return (List<Tarefa>) repository.getListaTarefas();
+    }
+
+    public void removeAll(){
+        if (!this.getListTasks().isEmpty()){
+            this.getListTasks().clear();
+        }
     }
 }
